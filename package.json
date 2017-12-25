@@ -1,0 +1,49 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A NodeJS, MongoDB, ExpressJS and VueJS URL Shortener",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint '**/*.{js}' --quiet",
+    "build": "babel src -d lib"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smehtaca/url-shortener.git"
+  },
+  "keywords": [
+    "Vue.js",
+    "ExpressJS",
+    "MongoDB",
+    "Nodejs"
+  ],
+  "author": "Sameer Mehta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smehtaca/url-shortener/issues"
+  },
+  "homepage": "https://github.com/smehtaca/url-shortener#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.0.4",
+    "babel-preset-env": "^1.6.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "jest": "^22.0.4",
+    "prettier-eslint": "^8.6.0",
+    "regenerator-runtime": "^0.11.1",
+    "superagent": "^3.8.2",
+    "supertest": "^3.0.0"
+  }
+}
