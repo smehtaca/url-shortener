@@ -4,6 +4,9 @@
 const express = require("express");
 // Init App
 const app = express();
+// Config
+const config = require("./config.js");
+
 // Path Module for concatenating file paths
 const path = require("path");
 

@@ -18,7 +18,12 @@
     "type": "git",
     "url": "git+https://github.com/smehtaca/url-shortener.git"
   },
-  "keywords": ["Vue.js", "ExpressJS", "MongoDB", "Nodejs"],
+  "keywords": [
+    "Vue.js",
+    "ExpressJS",
+    "MongoDB",
+    "Nodejs"
+  ],
   "author": "Sameer Mehta",
   "license": "MIT",
   "bugs": {
@@ -26,7 +31,9 @@
   },
   "homepage": "https://github.com/smehtaca/url-shortener#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7",
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

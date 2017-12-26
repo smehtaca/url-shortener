@@ -21,6 +21,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
     <link href="css/styles.css" rel="stylesheet">
+
+
+    <!-- Script for user tracking using socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        var visitorData = {
+            referringSite: document.referrer,
+            page: location.pathname,
+            browserAgent: navigator.userAgent,
+            browserType: navigator.vendor,
+            location: navigator.geolocation,
+            language: navigator.language,
+        }
+        socket.emit('setVisitorData', visitorData);
+    </script>
 </head>
 
 <body>

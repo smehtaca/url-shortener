@@ -1,6 +1,6 @@
 //Tests for URL encoding and decoding go here
 
-const url = require("../src/url");
+const url = require("../src/bijective");
 
 describe("Test the url encode and decode functions", () => {
   test("URL encode should return an encoded string", () => {
