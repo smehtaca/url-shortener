@@ -10,7 +10,7 @@ const io = require("socket.io")(http);
 // Store data about current active users
 let activeVisitors = {};
 
-io.on("connection", function(socket) {
+io.on("connection", socket => {
   // User visit
   socket.on("setVisitorData", data => {
     activeVisitors[socket.id] = data;
@@ -22,6 +22,6 @@ io.on("connection", function(socket) {
   });
 });
 
-server.listen(80, function() {
-  console.log("Server listening on port 3000");
+server.listen(process.env.PORT || 3000, () => {
+  console.log("Server listening on port: " + process.env.PORT);
 });
