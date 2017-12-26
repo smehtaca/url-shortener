@@ -22,6 +22,6 @@ io.on("connection", function(socket) {
   });
 });
 
-server.listen(3000, function() {
+server.listen(60, function() {
   console.log("Server listening on port 3000");
 });
