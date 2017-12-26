@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint '**/*.{js}' --quiet",
-    "watch": "jest --watch *.js",
+    "watch": "jest --watch *.test.js",
     "build": "babel src -d lib"
   },
   "jest": {
@@ -18,12 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/smehtaca/url-shortener.git"
   },
-  "keywords": [
-    "Vue.js",
-    "ExpressJS",
-    "MongoDB",
-    "Nodejs"
-  ],
+  "keywords": ["Vue.js", "ExpressJS", "MongoDB", "Nodejs"],
   "author": "Sameer Mehta",
   "license": "MIT",
   "bugs": {
