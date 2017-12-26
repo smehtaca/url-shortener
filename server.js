@@ -1,10 +1,10 @@
 // server.js
 
 // Require App
-const server = require("../src/app");
+const server = require("./app");
 
 // Socket.io setup
-const http = require("http").Server(app);
+const http = require("http").Server(server);
 const io = require("socket.io")(http);
 
 // Store data about current active users

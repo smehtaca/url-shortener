@@ -5,7 +5,7 @@ const puppeteer = require("puppeteer");
 // Require supertest
 const request = require("supertest");
 //Require App
-const app = require("../src/app");
+const app = require("../app");
 
 let page;
 let browser;
