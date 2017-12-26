@@ -21,7 +21,7 @@ body {
 
 .btn-shorten {
   color: #ffffff;
-  background-color: rgb(36, 156, 72);
+  background-color: rgb(0, 183, 255);
   border: none;
 }
 
@@ -30,7 +30,7 @@ body {
 .btn-shorten:active,
 .btn-shorten.active {
   color: #ffffff;
-  background-color: rgb(255, 140, 0);
+  background-color: rgb(25, 211, 81);
   border: none;
 }
 
