@@ -33,7 +33,9 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "mongoose": "^4.13.7"
+    "mongoose": "^4.13.7",
+    "nodemon": "^1.14.7",
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

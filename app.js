@@ -8,13 +8,15 @@ const mongoose = require("mongoose");
 const config = require("./config"); // Config file
 const bijective = require("./src/bijective.js");
 const Url = require("./models/url"); // Url Model
+const favicon = require("serve-favicon"); //Favicon
 
+app.use(favicon(path.join(__dirname, "public", "img", "favicon.ico")));
 // Serve public folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // Use bodyparser to parse json and URL encoded body data
-app.use(bodyParser.json);
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json);
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve up homepage
 app.get("/", (req, res) => {
