@@ -52,7 +52,7 @@ app.post("/api/shorten", (req, res) => {
       // URL has been shortened already
       shortenedUrl = config.webhost + bijective.encode(doc._id);
       // Return found url
-      res.send({ shortUrl: shortenedUrl });
+      res.send({ shortenedUrl: shortenedUrl });
     } else {
       // URL needs to be shprtened
       newUrl = Url({
@@ -65,7 +65,7 @@ app.post("/api/shorten", (req, res) => {
         }
         // Shorten URL
         shortenedUrl = config.webhost + bijective.encode(newUrl._id);
-        res.send({ shortUrl: shortenedUrl });
+        res.send({ shortenedUrl: shortenedUrl });
       });
     }
   });
