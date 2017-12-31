@@ -34,8 +34,33 @@ describe("Test the frontend", () => {
   test(
     "Check that a url input field exists",
     async () => {
-      const urlElement = await page.$eval("#url", el => (el ? true : false));
+      const urlElement = await page.$eval(
+        "#url-input",
+        el => (el ? true : false)
+      );
       expect(urlElement).toBe(true);
+    },
+    25000
+  );
+});
+
+const url = "https://www.google.ca/";
+
+describe("Test the frontend", () => {
+  test(
+    "Check that a shortened url is returned",
+    async () => {
+      await page.waitForSelector("#url-form");
+      await page.click("input[type=text]");
+      await page.type("input[type=text]", url);
+      await page.click("button[type=submit]");
+      const linkText = await page.$eval(
+        "#shortened-link",
+        el => el.textContent
+      );
+      expect(linkText).toEqual(
+        "Your shortened url is shortnmyurl.herokuapp.com/2"
+      );
     },
     25000
   );
