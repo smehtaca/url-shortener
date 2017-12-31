@@ -58,7 +58,9 @@ describe("Test the frontend", () => {
         "#shortened-link",
         el => el.textContent
       );
-      expect(linkText).toEqual("Your shortened url is localhost:3000/6");
+      expect(linkText).toEqual(
+        " Your Shortened URL is http://localhost:3000/7 "
+      );
     },
     25000
   );
