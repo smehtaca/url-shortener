@@ -2,7 +2,7 @@ $(".btn-shorten").on("click", function() {
   $.ajax({
     url: "/api/shorten",
     type: "POST",
-    dataType: "JSON",
+    dataType: "application/json",
     data: {
       url: $("#url-input").val()
     },
@@ -15,6 +15,9 @@ $(".btn-shorten").on("click", function() {
         "</a> </p>";
       $("#shortened-link").html(result);
       $("#shortened-link").fadeIn("slow");
+    },
+    error: function() {
+      console.log("The request failed");
     }
   });
 });

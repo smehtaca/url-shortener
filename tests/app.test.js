@@ -58,9 +58,7 @@ describe("Test the frontend", () => {
         "#shortened-link",
         el => el.textContent
       );
-      expect(linkText).toEqual(
-        "Your shortened url is shortnmyurl.herokuapp.com/2"
-      );
+      expect(linkText).toEqual("Your shortened url is localhost:3000/6");
     },
     25000
   );

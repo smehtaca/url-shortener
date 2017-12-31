@@ -2,7 +2,7 @@
   "name": "url-shortener",
   "version": "1.0.0",
   "description": "A NodeJS, MongoDB, ExpressJS and VueJS URL Shortener",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest",
     "lint": "eslint '**/*.{js}' --quiet",
@@ -18,12 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/smehtaca/url-shortener.git"
   },
-  "keywords": [
-    "Vue.js",
-    "ExpressJS",
-    "MongoDB",
-    "Nodejs"
-  ],
+  "keywords": ["Vue.js", "ExpressJS", "MongoDB", "Nodejs"],
   "author": "Sameer Mehta",
   "license": "MIT",
   "bugs": {
@@ -31,9 +26,9 @@
   },
   "homepage": "https://github.com/smehtaca/url-shortener#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "mongoose": "^4.13.7",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.9",
     "nodemon": "^1.14.7",
     "serve-favicon": "^2.4.5"
   },

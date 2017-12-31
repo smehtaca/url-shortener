@@ -20,7 +20,7 @@ const urlSchema = Schema({
 let counter = mongoose.model("counter", counterSchema);
 
 // PreSave middleware to update url count before saving url
-urlSchema.pre("save", next => {
+urlSchema.pre("save", function(next) {
   let doc = this;
 
   // Find and increate url_count
