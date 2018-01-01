@@ -24,12 +24,9 @@ app.use((req, res, next) => {
 
 // Connect to DB
 let mongo = mongoose.connect(
-  process.env.MONGODB_URI,
+  "mongodb://heroku_468hlp22:v4olng2ndh19rva9hversssud8@ds143342.mlab.com:43342/heroku_468hlp22",
   {
     useMongoClient: true
-  },
-  err => {
-    console.log("Mongoose error:" + err);
   }
 );
 
@@ -128,8 +125,11 @@ app.get("/:encoded_id", (req, res) => {
         // Redirect to long url
 
         // User forgot to include www or http(s) when creating shortened url, prefix url to properly redirect
-
-        res.redirect(doc.long_url);
+        if (!doc.long_url.includes("http") || !doc.long_url.includes("https")) {
+          res.redirect("https://" + doc.long_url);
+        } else {
+          res.redirect(doc.long_url);
+        }
       } else {
         // Send 404 if not found
         res.sendStatus(404);
