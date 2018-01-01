@@ -24,9 +24,12 @@ app.use((req, res, next) => {
 
 // Connect to DB
 let mongo = mongoose.connect(
-  "mongodb://" + config.db.host + "/" + config.db.name,
+  process.env.MONGODB_URI,
   {
     useMongoClient: true
+  },
+  err => {
+    console.log("Mongoose error:" + err);
   }
 );
 
