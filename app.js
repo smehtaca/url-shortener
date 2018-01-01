@@ -10,6 +10,7 @@ const bijective = require("./src/bijective.js");
 const Url = require("./models/url"); // Url Model
 const favicon = require("serve-favicon"); // Favicon
 const useragent = require("useragent"); // Accurately get user agent
+const getIP = require("ipware")().get_ip;
 
 // Use CORS
 app.use((req, res, next) => {
@@ -43,6 +44,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/index.html"));
 });
 
+// Serve up analytics page
+app.get("/analytics", (req, res) => {
+  res.sendFile(path.join(__dirname, "/views/analytics.html"));
+});
+
 // Returns shortened url from long url
 app.post("/api/shorten", (req, res) => {
   let longUrl = req.body.url;
@@ -57,7 +63,9 @@ app.post("/api/shorten", (req, res) => {
     } else {
       // URL needs to be shprtened
       newUrl = Url({
-        long_url: longUrl
+        long_url: longUrl,
+        clicked: 0,
+        users: {}
       });
       // Save the new link
       newUrl.save(err => {
@@ -92,42 +100,30 @@ app.get("/:encoded_id", (req, res) => {
   // Get current date
   const currentDate = new Date();
   // Get client IP
-  const ip = (
-    req.headers["x-forwarded-for"] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress
-  ).split(",")[0];
+  const ip = getIP(req).clientIp;
 
-  // Check if url ecists
+  // Check if url exists
   Url.findOneAndUpdate(
     { _id: id },
     {
-      clicked: doc.clicked + 1,
-      users:
-        doc.users +
-        {
+      $inc: { clicked: 1 },
+      $push: {
+        users: {
           ip: ip,
           timestamp: currentDate,
           device: device,
           os: os,
           browser: browser
         }
+      }
     },
     (err, doc) => {
       if (doc) {
         // Redirect to long url
 
         // User forgot to include www or http(s) when creating shortened url, prefix url to properly redirect
-        if (
-          !doc.long_url.includes("http") ||
-          !doc.long_url.includes("https") ||
-          !doc.long_url("www")
-        ) {
-          res.redirect("https://" + doc.long_url);
-        } else {
-          res.redirect(doc.long_url);
-        }
+
+        res.redirect(doc.long_url);
       } else {
         // Send 404 if not found
         res.sendStatus(404);
@@ -135,4 +131,26 @@ app.get("/:encoded_id", (req, res) => {
     }
   );
 });
+
+// Returns analytics data
+app.post("/api/analyze", (req, res) => {
+  console.log("Hit");
+  let url = req.body.url;
+  let shorturlindex = url.lastIndexOf("/");
+  let shorturl = url.substring(shorturlindex + 1);
+
+  let id = bijective.decode(shorturl);
+
+  Url.findOne({ _id: id }, (err, doc) => {
+    if (doc) {
+      // Send analytics data
+      let analyticsData = {
+        clicked: doc.clicked,
+        users: doc.users
+      };
+      res.send(analyticsData);
+    }
+  });
+});
+
 module.exports = app;

@@ -9,14 +9,18 @@ const counterSchema = Schema({
   seq: { type: Number, default: 0 }
 });
 
-// Define user schema for tracking users
-const userSchema = Schema({
-  ip: String,
-  timestamp: Date,
-  device: String,
-  os: String,
-  browser: String
-});
+// Define user schema
+
+const userSchema = Schema(
+  {
+    ip: String,
+    timestamp: Date,
+    device: String,
+    os: String,
+    browser: String
+  },
+  { _id: false }
+);
 
 // Define url schema for links
 const urlSchema = Schema({
@@ -29,8 +33,6 @@ const urlSchema = Schema({
 
 // Create counter model
 let counter = mongoose.model("counter", counterSchema);
-
-let user = mongoose.model("user", userSchema);
 
 // PreSave middleware to update url count before saving url
 urlSchema.pre("save", function(next) {
@@ -53,7 +55,6 @@ urlSchema.pre("save", function(next) {
     );
   }
 });
-
 //Create Model from Url Schema
 const Url = mongoose.model("Url", urlSchema);
 
