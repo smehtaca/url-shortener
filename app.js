@@ -9,6 +9,7 @@ const config = require("./config"); // Config file
 const bijective = require("./src/bijective.js");
 const Url = require("./models/url"); // Url Model
 const favicon = require("serve-favicon"); // Favicon
+const useragent = require("useragent"); // Accurately get user agent
 
 // Use CORS
 app.use((req, res, next) => {
@@ -76,25 +77,62 @@ app.get("/:encoded_id", (req, res) => {
   let encodedId = req.params.encoded_id;
   let id = bijective.decode(encodedId);
 
-  // Check if url ecists
-  Url.findOne({ _id: id }, (err, doc) => {
-    if (doc) {
-      // Redirect to long url
+  // Get client User Agent
+  const userAgent = useragent.lookup(req.headers["user-agent"]);
 
-      // User forgot to include www or http(s) when creating shortened url, prefix url to properly redirect
-      if (
-        !doc.long_url.includes("http") ||
-        !doc.long_url.includes("https") ||
-        !doc.long_url("www")
-      ) {
-        res.redirect("https://" + doc.long_url);
+  // Get Device
+  const device = userAgent.device.toString();
+
+  // Get OS
+  const os = userAgent.os.toString();
+
+  // Get Browser
+  const browser = userAgent.family.toString();
+
+  // Get current date
+  const currentDate = new Date();
+  // Get client IP
+  const ip = (
+    req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress
+  ).split(",")[0];
+
+  // Check if url ecists
+  Url.findOneAndUpdate(
+    { _id: id },
+    {
+      clicked: doc.clicked + 1,
+      users:
+        doc.users +
+        {
+          ip: ip,
+          timestamp: currentDate,
+          device: device,
+          os: os,
+          browser: browser
+        }
+    },
+    (err, doc) => {
+      if (doc) {
+        // Redirect to long url
+
+        // User forgot to include www or http(s) when creating shortened url, prefix url to properly redirect
+        if (
+          !doc.long_url.includes("http") ||
+          !doc.long_url.includes("https") ||
+          !doc.long_url("www")
+        ) {
+          res.redirect("https://" + doc.long_url);
+        } else {
+          res.redirect(doc.long_url);
+        }
       } else {
-        res.redirect(doc.long_url);
+        // Send 404 if not found
+        res.sendStatus(404);
       }
-    } else {
-      // Send 404 if not found
-      res.sendStatus(404);
     }
-  });
+  );
 });
 module.exports = app;
