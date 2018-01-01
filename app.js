@@ -80,7 +80,17 @@ app.get("/:encoded_id", (req, res) => {
   Url.findOne({ _id: id }, (err, doc) => {
     if (doc) {
       // Redirect to long url
-      res.redirect(doc.long_url);
+
+      // User forgot to include www or http(s) when creating shortened url, prefix url to properly redirect
+      if (
+        !doc.long_url.includes("http") ||
+        !doc.long_url.includes("https") ||
+        !doc.long_url("www")
+      ) {
+        res.redirect("https://" + doc.long_url);
+      } else {
+        res.redirect(doc.long_url);
+      }
     } else {
       // Send 404 if not found
       res.sendStatus(404);
