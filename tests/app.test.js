@@ -71,23 +71,17 @@ describe("Test the redirect", () => {
     return request(app)
       .get("/7")
       .then(res => {
-        expect(res.statusCode).toBe(200);
+        expect(res.statusCode).toBe(302);
       });
   });
 });
 
-describe("Test the frontend and the redirect", () => {
-  test(
-    "Check that a redirect happens on",
-    async () => {
-      await page.waitForSelector("#url-form");
-      await page.click("input[type=text]");
-      await page.type("input[type=text]", url);
-      await page.click("button[type=submit]");
-      await page.click("a[class=shortened-url]").then(res => {
-        expect(res.statusCode).toBe(200);
+describe("Test the redirect", () => {
+  test("Test that a 404 HTTP OK is returned indicating failed redirect", () => {
+    return request(app)
+      .get("/-7")
+      .then(res => {
+        expect(res.statusCode).toBe(404);
       });
-    },
-    25000
-  );
+  });
 });

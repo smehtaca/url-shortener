@@ -72,5 +72,19 @@ app.post("/api/shorten", (req, res) => {
 });
 
 // Redirect user to original url
-app.get("/:encoded_id", (req, res) => {});
+app.get("/:encoded_id", (req, res) => {
+  let encodedId = req.params.encoded_id;
+  let id = bijective.decode(encodedId);
+
+  // Check if url ecists
+  Url.findOne({ _id: id }, (err, doc) => {
+    if (doc) {
+      // Redirect to long url
+      res.redirect(doc.long_url);
+    } else {
+      // Send 404 if not found
+      res.sendStatus(404);
+    }
+  });
+});
 module.exports = app;
