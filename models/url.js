@@ -12,10 +12,10 @@ const counterSchema = Schema({
 // Define user schema for tracking users
 const userSchema = Schema({
   ip: String,
-  timestamp: Date.
-  device: String
+  timestamp: Date,
+  device: String,
   os: String,
-  browser: String,
+  browser: String
 });
 
 // Define url schema for links
