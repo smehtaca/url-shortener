@@ -53,13 +53,12 @@ app.get("/analytics", (req, res) => {
 app.post("/api/shorten", (req, res) => {
   let longUrl = req.body.url;
   let shortenedUrl = "";
-  console.log("Shorten request");
 
   Url.findOne({ long_url: longUrl }, (err, doc) => {
     if (doc) {
       // URL has been shortened already
       shortenedUrl = config.webhost + bijective.encode(doc._id);
-      console.log(shortenedUrl);
+
       // Return found url
       res.send({ shortenedUrl: shortenedUrl });
     } else {
@@ -76,7 +75,7 @@ app.post("/api/shorten", (req, res) => {
         }
         // Shorten URL
         shortenedUrl = config.webhost + bijective.encode(newUrl._id);
-        console.log(shortenedUrl);
+
         res.send({ shortenedUrl: shortenedUrl });
       });
     }
@@ -87,7 +86,7 @@ app.post("/api/shorten", (req, res) => {
 app.get("/:encoded_id", (req, res) => {
   let encodedId = req.params.encoded_id;
   let id = bijective.decode(encodedId);
-  console.log("Unshorten");
+
   // Get client User Agent
   const userAgent = useragent.lookup(req.headers["user-agent"]);
 
@@ -140,7 +139,6 @@ app.get("/:encoded_id", (req, res) => {
 
 // Returns analytics data
 app.post("/api/analyze", (req, res) => {
-  console.log("Analyze");
   let url = req.body.url;
   let shorturlindex = url.lastIndexOf("/");
   let shorturl = url.substring(shorturlindex + 1);
