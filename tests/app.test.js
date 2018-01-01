@@ -65,3 +65,29 @@ describe("Test the frontend", () => {
     25000
   );
 });
+
+describe("Test the redirect", () => {
+  test("Test that a 200 HTTP OK is returned indicating successfull redirect", () => {
+    return request(app)
+      .get("/7")
+      .then(res => {
+        expect(res.statusCode).toBe(200);
+      });
+  });
+});
+
+describe("Test the frontend and the redirect", () => {
+  test(
+    "Check that a redirect happens on",
+    async () => {
+      await page.waitForSelector("#url-form");
+      await page.click("input[type=text]");
+      await page.type("input[type=text]", url);
+      await page.click("button[type=submit]");
+      await page.click("a[class=shortened-url]").then(res => {
+        expect(res.statusCode).toBe(200);
+      });
+    },
+    25000
+  );
+});
